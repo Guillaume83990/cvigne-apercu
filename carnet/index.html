@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Le carnet d'écriture · Emilien Goutu</title>
+<link rel="icon" href="/cvigne-apercu/images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/cvigne-apercu/css/carnet.css">
+<link rel="stylesheet" href="/cvigne-apercu/carnet/atelier.css">
+</head>
+<body class="atelier">
+<a class="evitement" href="#principal">Aller au contenu</a>
+
+<main id="principal">
+<!-- ── Accueil : ouvrir le carnet ── -->
+<section class="ecran ecran-accueil" data-ecran="accueil" hidden>
+  <div class="accueil-carte">
+    <p class="surtitre">Les aventures gastronomiques d'Emilien Goutu</p>
+    <h1>Le carnet <em>d'écriture</em></h1>
+    <p class="accueil-texte" data-accueil-texte>Pour commencer, ouvrez le dossier du site sur cet ordinateur.</p>
+    <div class="accueil-actions">
+      <button type="button" class="bouton-carnet" data-action="ouvrir-dossier">Ouvrir le dossier du site</button>
+      <button type="button" class="bouton-carnet" data-action="reprendre-dossier" hidden>Reprendre là où j'en étais</button>
+    </div>
+    <p class="accueil-note" data-accueil-note role="status"></p>
+  </div>
+</section>
+
+<!-- ── Le sommaire du carnet ── -->
+<section class="ecran ecran-cahier" data-ecran="sommaire" hidden>
+  <header class="cahier-tete">
+    <div>
+      <p class="surtitre" data-salut>Bonjour</p>
+      <h1>Le carnet <em>d'Emilien</em></h1>
+      <p class="cahier-resume" data-resume></p>
+    </div>
+    <button type="button" class="bouton-carnet bouton-plume" data-action="nouveau">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-6 1-11 6-13 13l-2 3 3-2c7-2 12-7 13-13z"/><path d="M7 17l5-5"/></svg>
+      Écrire un nouvel épisode
+    </button>
+  </header>
+  <div class="reprise" data-reprise hidden></div>
+  <div class="cahier-outils">
+    <div class="cahier-filtres" role="group" aria-label="Afficher">
+      <button type="button" aria-pressed="true" data-filtre="tout">Tous</button>
+      <button type="button" aria-pressed="false" data-filtre="publie">Publiés</button>
+      <button type="button" aria-pressed="false" data-filtre="programme">Programmés</button>
+      <button type="button" aria-pressed="false" data-filtre="brouillon">Brouillons</button>
+    </div>
+    <label class="cahier-recherche">
+      <span class="visuellement-cache">Chercher dans mes épisodes</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" placeholder="Chercher un titre, un mot…" data-recherche>
+    </label>
+  </div>
+  <p class="cahier-compte" data-compte role="status"></p>
+  <ol class="cahier-liste" data-liste></ol>
+  <footer class="cahier-pied"><span data-mode></span> · <button type="button" class="lien-discret" data-action="changer-dossier">Changer de dossier</button></footer>
+</section>
+
+<!-- ── La page d'écriture ── -->
+<section class="ecran ecran-ecriture" data-ecran="ecriture" hidden>
+  <header class="barre">
+    <button type="button" class="barre-retour" data-action="retour"><span aria-hidden="true">←</span> Le carnet</button>
+    <p class="barre-etat" data-etat role="status" aria-live="polite"></p>
+    <div class="barre-actions">
+      <button type="button" class="barre-bouton" data-action="versions" title="Anciennes versions">Versions</button>
+      <button type="button" class="barre-bouton" data-action="apercu" title="Voir l'épisode comme sur le site">Aperçu</button>
+      <button type="button" class="barre-bouton" data-action="plein-ecran" title="Écrire en plein écran (Échap pour sortir)">Plein écran</button>
+      <button type="button" class="bouton-carnet bouton-petit" data-action="publier" data-publier>Publier</button>
+    </div>
+  </header>
+
+  <div class="bandeau-reprise" data-bandeau hidden></div>
+
+  <div class="atelier-corps">
+    <div class="feuille-zone">
+      <article class="feuille">
+        <p class="feuille-surtitre surtitre" data-surtitre></p>
+        <label class="visuellement-cache" for="titre">Titre de l'épisode</label>
+        <textarea id="titre" class="feuille-titre" rows="1" placeholder="Titre de l'épisode" data-titre spellcheck="true"></textarea>
+        <div class="outils" role="toolbar" aria-label="Mise en forme" data-outils>
+          <button type="button" data-format="gras" title="Gras (Ctrl+B)"><b>G</b></button>
+          <button type="button" data-format="italique" title="Italique (Ctrl+I)"><i>I</i></button>
+          <span class="outils-sep" aria-hidden="true"></span>
+          <button type="button" data-format="intertitre" title="Intertitre">Intertitre</button>
+          <button type="button" data-format="citation" title="Citation, lettre">Citation</button>
+          <button type="button" data-format="tiret" title="Tiret de dialogue (—)">— Dialogue</button>
+          <span class="outils-sep" aria-hidden="true"></span>
+          <button type="button" data-format="annuler" title="Annuler (Ctrl+Z)" aria-label="Annuler">↶</button>
+          <button type="button" data-format="retablir" title="Rétablir (Ctrl+Y)" aria-label="Rétablir">↷</button>
+        </div>
+        <div class="feuille-texte episode-texte" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Texte de l'épisode" data-editeur spellcheck="true" lang="fr"></div>
+      </article>
+      <footer class="compteur" data-compteur aria-live="off"></footer>
+    </div>
+
+    <aside class="panneau" aria-label="L'épisode" data-panneau>
+      <h2 class="panneau-titre">L'épisode</h2>
+
+      <div class="champ">
+        <label for="saison">Saison</label>
+        <select id="saison" data-champ="saison"></select>
+      </div>
+
+      <div class="champ">
+        <label for="date">Date de parution</label>
+        <input type="date" id="date" data-champ="date">
+        <div class="champ-raccourcis">
+          <button type="button" class="lien-discret" data-date="mardi">Mardi prochain</button>
+          <button type="button" class="lien-discret" data-date="aujourdhui">Aujourd'hui</button>
+        </div>
+        <p class="champ-aide" data-aide-date></p>
+      </div>
+
+      <div class="champ">
+        <span class="champ-label" id="lab-image">Image de l'épisode <small>(facultative)</small></span>
+        <div class="image-zone" data-image-zone aria-labelledby="lab-image">
+          <img alt="" data-image-apercu hidden>
+          <p data-image-vide>Glissez une photo ici<br>ou <button type="button" class="lien-discret" data-action="choisir-image">choisissez-la</button></p>
+          <button type="button" class="image-retirer" data-action="retirer-image" hidden>Retirer l'image</button>
+          <input type="file" accept="image/*" data-image-fichier hidden>
+        </div>
+      </div>
+
+      <div class="champ">
+        <span class="champ-label">Au menu de cet épisode <small>(facultatif)</small></span>
+        <ol class="menu-lignes" data-menu></ol>
+        <button type="button" class="lien-discret" data-action="ajouter-plat">+ Ajouter un plat</button>
+      </div>
+
+      <div class="champ">
+        <label for="resume">Phrase d'accroche <small>(facultative)</small></label>
+        <textarea id="resume" rows="3" data-champ="resume" placeholder="Si vous la laissez vide, le début de l'épisode sera utilisé."></textarea>
+      </div>
+
+      <div class="champ champ-case">
+        <label><input type="checkbox" data-typo checked> Typographie française automatique <small>(’ « » —)</small></label>
+      </div>
+
+      <div class="panneau-pied">
+        <button type="button" class="lien-discret" data-action="brouillon">Garder en brouillon</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+</main>
+
+<!-- ── Aperçu exact de l'épisode ── -->
+<div class="voile" data-voile="apercu" hidden>
+  <div class="voile-tete"><p class="surtitre">Aperçu : l'épisode tel qu'il paraîtra</p><button type="button" class="barre-bouton" data-action="fermer">Fermer</button></div>
+  <div class="voile-page"><article class="episode" data-apercu></article></div>
+</div>
+
+<!-- ── Anciennes versions ── -->
+<div class="voile voile-cote" data-voile="versions" hidden>
+  <div class="voile-tete"><p class="surtitre">Anciennes versions</p><button type="button" class="barre-bouton" data-action="fermer">Fermer</button></div>
+  <p class="versions-aide">Chaque enregistrement est gardé. Cliquez sur une version pour la relire, puis « Revenir à cette version » si vous le souhaitez.</p>
+  <ol class="versions-liste" data-versions></ol>
+  <div class="versions-lecture" data-version-lecture hidden></div>
+</div>
+
+<!-- ── Fenêtre de confirmation ── -->
+<dialog class="dialogue" data-dialogue>
+  <form method="dialog">
+    <h2 data-dialogue-titre></h2>
+    <p data-dialogue-texte></p>
+    <div class="dialogue-actions">
+      <button value="non" class="lien-discret" data-dialogue-non>Annuler</button>
+      <button value="oui" class="bouton-carnet bouton-petit" data-dialogue-oui>Confirmer</button>
+    </div>
+  </form>
+</dialog>
+
+<p class="annonce" data-annonce role="status" aria-live="polite"></p>
+
+<script src="/cvigne-apercu/js/texte.js"></script>
+<script src="/cvigne-apercu/carnet/depot.js"></script>
+<script src="/cvigne-apercu/carnet/atelier.js"></script>
+<div id="apercu-bandeau" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#2b2118;color:#f4ead8;font:500 12px/1.3 system-ui,sans-serif;padding:8px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);letter-spacing:.02em">Aperçu privé · version de travail</div>
+<script>document.addEventListener('submit',function(e){e.preventDefault();alert("Aperçu : les formulaires ne sont pas encore branchés, rien n'a été envoyé.");},true);</script>
+<script>
+// Aperçu : le carnet s'ouvre en mode essai, avec une copie des épisodes en mémoire. Rien n'est enregistré ni publié.
+(async function(){var r=await fetch('/cvigne-apercu/carnet/essai.json');var d=await r.json();Carnet.demarrerAvec(Depot.depotMemoire(d));})();
+// Pas de choix de dossier dans l'aperçu (il ouvrirait un dossier de l'ordinateur)
+new MutationObserver(function(){document.querySelectorAll('button').forEach(function(b){if(/^(Changer de dossier|Ouvrir le dossier du site)$/.test(b.textContent.trim()))b.style.display='none';});}).observe(document.body,{childList:true,subtree:true});
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+/* ================================================================
+   VALIDATION DE FORMULAIRE · styles de base (Sud Web Project)
+   À adapter à l'identité de chaque client via les variables.
+   ================================================================ */
+
+:root {
+    --valid-erreur: #D64545;          /* texte et filet d'erreur */
+    --valid-accent: currentColor;     /* lien de suggestion d'adresse */
+    --valid-taille: .8rem;
+}
+
+/* Le conteneur du champ (par défaut .fg) doit être en position relative */
+.fg { position: relative; }
+
+.fg.is-invalide input,
+.fg.is-invalide select,
+.fg.is-invalide textarea {
+    border-color: var(--valid-erreur);
+}
+
+.fg-erreur {
+    margin: .45rem 0 0;
+    font-size: var(--valid-taille);
+    line-height: 1.4;
+    color: var(--valid-erreur);
+    min-height: 0;
+}
+
+.fg-erreur:empty { display: none; }
+
+/* « Vouliez-vous dire … ? » : la suggestion n'est pas une erreur */
+.fg:not(.is-invalide) .fg-erreur { color: inherit; opacity: .8; }
+
+.fg-suggestion {
+    font: inherit;
+    color: var(--valid-accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.fg-resume {
+    margin: 0 0 1rem;
+    font-size: var(--valid-taille);
+    color: var(--valid-erreur);
+}
+
+.fg-resume:empty { display: none; }

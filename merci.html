@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merci Papa ❤️</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <meta name="theme-color" content="#c8924a" />
+    <style>
+        @import url('../fonts/playfair-display-v40-latin-regular.woff2');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #faf6ef;
+            font-family: Georgia, 'Times New Roman', serif;
+            color: #3e2f25;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .page {
+            max-width: 600px;
+            animation: apparaitre 1.4s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes apparaitre {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ornement {
+            font-size: 2rem;
+            color: #c8924a;
+            letter-spacing: 0.4em;
+            margin-bottom: 2.5rem;
+            opacity: 0.6;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+            color: #5c3d1e;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: #c8924a;
+        }
+
+        .texte {
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+            line-height: 1.95;
+            color: #5c3d1e;
+            margin-bottom: 2.5rem;
+        }
+
+        .coeur {
+            font-size: 3rem;
+            margin: 1.5rem 0;
+            animation: battre 1.6s ease-in-out infinite;
+        }
+
+        @keyframes battre {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .signature {
+            margin-top: 2.5rem;
+            font-size: 0.95rem;
+            color: #a08060;
+            font-style: italic;
+            letter-spacing: 0.05em;
+        }
+
+        .trait {
+            width: 60px;
+            height: 1px;
+            background: #c8924a;
+            margin: 2rem auto;
+            opacity: 0.5;
+        }
+
+        .retour {
+            margin-top: 3rem;
+        }
+
+        .retour a {
+            font-size: 0.8rem;
+            color: #c8924a;
+            text-decoration: none;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .retour a:hover {
+            border-bottom-color: #c8924a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <div class="ornement">✦ ✦ ✦</div>
+
+        <h1>Pour toi,<br><em>Papa</em></h1>
+
+        <div class="trait"></div>
+
+        <p class="texte">
+            Ce site existe parce que tes histoires<br>
+            méritaient d'avoir leur maison.
+        </p>
+
+        <div class="coeur">❤️</div>
+
+        <p class="texte">
+            Merci Papa
+        </p>
+
+        <div class="trait"></div>
+
+        <p class="signature">
+            Créé avec amour par ton fils
+        </p>
+
+        <div class="retour">
+            <a href="index.html">← Retour au site</a>
+        </div>
+
+    </div>
+<div id="apercu-bandeau" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#2b2118;color:#f4ead8;font:500 12px/1.3 system-ui,sans-serif;padding:8px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);letter-spacing:.02em">Aperçu privé · version de travail</div>
+<script>document.addEventListener('submit',function(e){e.preventDefault();alert("Aperçu : les formulaires ne sont pas encore branchés, rien n'a été envoyé.");},true);</script>
+</body>
+
+</html>

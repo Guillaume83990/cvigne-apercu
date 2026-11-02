@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Fond ambre/doré arrondi -->
+  <rect width="32" height="32" rx="7" fill="#c8924a"/>
+
+  <!-- Assiette (cercle blanc) -->
+  <circle cx="16" cy="17" r="9" fill="none" stroke="white" stroke-width="1.6"/>
+  <!-- Assiette intérieure -->
+  <circle cx="16" cy="17" r="6" fill="none" stroke="white" stroke-width="0.9" opacity="0.6"/>
+
+  <!-- Fourchette (gauche) -->
+  <line x1="10.5" y1="6" x2="10.5" y2="12" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="9.2" y1="6" x2="9.2" y2="9.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+  <line x1="11.8" y1="6" x2="11.8" y2="9.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M9.2 9.5 Q10.5 11 11.8 9.5" fill="none" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+
+  <!-- Couteau (droite) -->
+  <line x1="21.5" y1="6" x2="21.5" y2="12" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M21.5 6 Q23.5 7.5 23 9.5 L21.5 10" fill="white" opacity="0.9"/>
+</svg>
