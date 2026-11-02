@@ -27,7 +27,7 @@
     const volumes = [...scene.querySelectorAll('.volume')];
     const points = [...etagere.querySelectorAll('[data-etagere-point]')];
     const fond = etagere.querySelector('[data-etagere-fond]');
-    let actuel = volumes.length - 1; // la saison en cours
+    let actuel = Math.max(0, volumes.findIndex(v => v.hasAttribute('data-volume-actuel'))); // l'étape en cours
 
     function placer() {
       const ecart = Math.min(innerWidth * 0.26, 290);

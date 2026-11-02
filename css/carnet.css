@@ -97,6 +97,7 @@ a:hover .lien-fleche::after, .lien-fleche:hover::after { transform: translateX(5
 .tampon-paris { color: #7a2d2d; }
 .tampon-bordeaux { color: #5a2a3a; }
 .tampon-naples { color: #2f4a3a; }
+.tampon-saison-2 { color: #3d3a5c; }
 .tampon-grand { font-size: .9rem; padding: 8px 16px 7px; border-width: 3px; }
 .tampon-applique { animation: tampon .7s var(--courbe) both .2s; }
 @keyframes tampon { 0% { transform: rotate(-12deg) scale(1.8); opacity: 0; } 60% { transform: rotate(-3deg) scale(.94); opacity: 1; } 100% { transform: rotate(-4deg) scale(1); opacity: .9; } }
@@ -149,17 +150,15 @@ a:hover .lien-fleche::after, .lien-fleche:hover::after { transform: translateX(5
 @media (min-width: 900px) { .sommaire-papier { grid-template-columns: 1.6fr 1fr; padding: 130px 32px 64px; align-items: start; } }
 .sommaire-papier > .surtitre { grid-column: 1 / -1; margin: 0; }
 .sommaire-liste { list-style: none; margin: 0; padding: 0; counter-reset: s; }
-.sommaire-liste a { display: grid; grid-template-columns: 3rem auto 1fr auto; align-items: baseline; gap: 12px; padding: 10px 0; text-decoration: none; color: var(--encre); }
+.sommaire-liste a { display: grid; grid-template-columns: 3rem 1fr; align-items: baseline; gap: 12px; padding: 10px 0; text-decoration: none; color: var(--encre); }
 .sommaire-num { font-family: var(--caps); font-size: .85rem; color: var(--ambre-encre); }
 .sommaire-titre { font-family: var(--titre); font-size: clamp(1.9rem, 5.4vw, 3.6rem); line-height: 1.1; transition: transform .5s var(--courbe), color .3s; }
-.sommaire-points { border-bottom: 2px dotted var(--trait); transform: translateY(-.4em); }
-.sommaire-page { font-family: var(--caps); font-size: .8rem; color: var(--encre-douce); }
 .sommaire-liste a:hover .sommaire-titre, .sommaire-liste a[aria-current] .sommaire-titre { color: var(--bordeaux); font-style: italic; transform: translateX(10px); }
 .sommaire .sommaire-liste li { opacity: 0; transform: translateY(30px); transition: opacity .6s var(--courbe), transform .6s var(--courbe); }
 .sommaire.ouvert .sommaire-liste li { opacity: 1; transform: none; }
 .sommaire.ouvert .sommaire-liste li:nth-child(1) { transition-delay: .18s } .sommaire.ouvert .sommaire-liste li:nth-child(2) { transition-delay: .24s } .sommaire.ouvert .sommaire-liste li:nth-child(3) { transition-delay: .30s } .sommaire.ouvert .sommaire-liste li:nth-child(4) { transition-delay: .36s } .sommaire.ouvert .sommaire-liste li:nth-child(5) { transition-delay: .42s } .sommaire.ouvert .sommaire-liste li:nth-child(6) { transition-delay: .48s }
 .sommaire-aside { border-left: 1px solid var(--trait); padding-left: 28px; }
-@media (max-width: 899px) { .sommaire-aside { border-left: 0; padding-left: 0; border-top: 1px solid var(--trait); padding-top: 28px; } .sommaire-page, .sommaire-points { display: none; } .sommaire-liste a { grid-template-columns: 2.4rem 1fr; } }
+@media (max-width: 899px) { .sommaire-aside { border-left: 0; padding-left: 0; border-top: 1px solid var(--trait); padding-top: 28px; } .sommaire-liste a { grid-template-columns: 2.4rem 1fr; } }
 .sommaire-dernier { display: grid; gap: 6px; padding: 22px; background: var(--papier-clair); border: 1px solid var(--trait); border-radius: 6px; text-decoration: none; color: var(--encre); margin-bottom: 26px; }
 .sommaire-dernier .tampon { justify-self: start; margin-bottom: 8px; }
 .sommaire-dernier-num { font-family: var(--caps); font-size: .75rem; letter-spacing: .16em; color: var(--ambre-encre); }
@@ -492,6 +491,9 @@ input:focus, textarea:focus { outline: none; border-color: var(--ambre-encre); b
 .volume-nom { font-family: var(--caps); font-size: .75rem; letter-spacing: .2em; margin-top: 14px; }
 .volume-titre { font-family: var(--titre); font-style: italic; font-size: 1.75rem; line-height: 1.15; }
 .volume-lieu { font-size: .95rem; opacity: .85; }
+/* La saison à venir : un volume encore sans pages, qu on ne peut pas ouvrir */
+.volume-a-venir { cursor: default; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,.035) 14px 15px), linear-gradient(90deg, rgba(0,0,0,.35) 0, rgba(255,255,255,.12) 4%, rgba(0,0,0,.08) 8%, transparent 12%), var(--couleur); }
+.volume-a-venir .volume-titre { opacity: .9; }
 .volume-pied { position: absolute; bottom: 30px; font-family: var(--caps); font-size: .65rem; letter-spacing: .18em; opacity: .75; }
 .etagere-commandes { display: flex; justify-content: center; align-items: center; gap: 18px; }
 .etagere-fleche { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(248,242,231,.3); background: rgba(0,0,0,.3); color: var(--papier); font-size: 1.5rem; cursor: pointer; line-height: 1; }

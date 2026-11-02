@@ -1,14 +1,14 @@
-# Les aventures gastronomiques d'Emilien Goutu
+# C. Vigné, Les aventures gastronomiques d'Emilien Goutu
 
-> Site officiel de C. Vigné, auteur du roman « Les aventures gastronomiques d'Emilien Goutu » (Le Lys Bleu Éditions, 2025) et d'un feuilleton gastronomique publié chaque semaine.
+> Site officiel de C. Vigné, auteur du roman « Les aventures gastronomiques d'Emilien Goutu » (Le Lys Bleu Éditions, 2025) et de sa suite inédite, le tome 2, publiée en feuilleton sur ce site.
 
 ## Le feuilleton
-- [Hors-série : Les premiers récits](https://www.emiliengoutu.fr/saisons/hors-serie/) : Avant le grand voyage, trois récits à part : une course landaise, un rêve prémonitoire et une lettre à un ami.
-- [Saison 1 : Le déjeuner au Clarence](https://www.emiliengoutu.fr/saisons/paris/) : Emilien retrouve son ami Lucien à Paris. Au Clarence, entre les plats et les grands vins, Lucien lui annonce un voyage à Bordeaux.
-- [Saison 2 : Les vols de raisins](https://www.emiliengoutu.fr/saisons/bordeaux/) : La campagne des primeurs, une soirée au Château Branaire-Ducru, puis une affaire de raisins volés dans le vignoble de Saint-Émilion. Une piste mène en Italie.
-- [Saison 3 : L'affaire napolitaine](https://www.emiliengoutu.fr/saisons/naples/) : Emilien et Lucien partent pour Naples sur la piste italienne. Alessandro les accueille, et l'enquête les rapproche de la Camorra.
+- [Étape 1 : Les premiers récits](https://www.cvigne.fr/saisons/hors-serie/) : Avant le grand voyage, trois récits à part : une course landaise, un rêve prémonitoire et une lettre à un ami.
+- [Étape 2 : Le déjeuner au Clarence](https://www.cvigne.fr/saisons/paris/) : Emilien retrouve son ami Lucien à Paris. Au Clarence, entre les plats et les grands vins, Lucien lui annonce un voyage à Bordeaux.
+- [Étape 3 : Les vols de raisins](https://www.cvigne.fr/saisons/bordeaux/) : La campagne des primeurs, une soirée au Château Branaire-Ducru, puis une affaire de raisins volés dans le vignoble de Saint-Émilion. Une piste mène en Italie.
+- [Étape 4 : L'affaire napolitaine](https://www.cvigne.fr/saisons/naples/) : Emilien et Lucien partent pour Naples sur la piste italienne. Alessandro les accueille, et l'enquête les rapproche de la Camorra.
 
 ## Le livre et l'auteur
-- [Le livre](https://www.emiliengoutu.fr/livre.html)
-- [L'auteur, C. Vigné](https://www.emiliengoutu.fr/apropos.html)
-- [Les personnages](https://www.emiliengoutu.fr/personnages.html)
+- [Le livre](https://www.cvigne.fr/livre.html)
+- [L'auteur, C. Vigné](https://www.cvigne.fr/apropos.html)
+- [Les personnages](https://www.cvigne.fr/personnages.html)
