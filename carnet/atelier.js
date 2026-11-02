@@ -127,6 +127,7 @@
   async function accueil() {
     montrer('accueil');
     const note = $('[data-accueil-note]');
+    if (Depot.enLigne) return accueilEnLigne();
     if (!Depot.localPossible) {
       $('[data-accueil-texte]').textContent = 'Ce carnet s\'ouvre avec Google Chrome ou Microsoft Edge, sur l\'ordinateur.';
       $('[data-action="ouvrir-dossier"]').hidden = true;
@@ -141,6 +142,37 @@
       } else if (m) { demarrer(m); }
     } catch (err) { note.textContent = 'Le dossier mémorisé est introuvable. Choisissez-le de nouveau.'; }
   }
+  // Sur le vrai site : la clé de connexion, collée une seule fois sur cet ordinateur
+  const MESSAGE_RESEAU = 'Le carnet n\'arrive pas à joindre le site. Vérifiez la connexion à Internet, puis rechargez la page.';
+  async function accueilEnLigne() {
+    $('[data-action="ouvrir-dossier"]').hidden = true;
+    const note = $('[data-accueil-note]');
+    try {
+      const d = await Depot.depotEnLigne();
+      if (d) { demarrer(d); return; }
+    } catch (err) {
+      if (!err.statut) { $('[data-accueil-texte]').textContent = MESSAGE_RESEAU; return; }
+      note.textContent = 'Votre clé ne fonctionne plus (elle a peut-être expiré). Demandez-en une nouvelle à Guillaume.';
+    }
+    $('[data-accueil-texte]').textContent = 'La première fois sur cet ordinateur, collez la clé de connexion que Guillaume vous a donnée. Le carnet s\'en souviendra.';
+    $('[data-connexion]').hidden = false;
+    $('[data-cle]').focus();
+  }
+  $('[data-connexion]').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const champ = $('[data-cle]');
+    const note = $('[data-accueil-note]');
+    note.textContent = 'Ouverture…';
+    try {
+      const d = await Depot.depotEnLigne(champ.value);
+      champ.value = '';
+      $('[data-connexion]').hidden = true;
+      note.textContent = '';
+      demarrer(d);
+    } catch (err) {
+      note.textContent = err.statut ? 'Cette clé n\'ouvre pas le carnet. Vérifiez qu\'elle est copiée en entier, sans espace.' : MESSAGE_RESEAU;
+    }
+  });
   $('[data-action="ouvrir-dossier"]').addEventListener('click', async () => {
     const note = $('[data-accueil-note]');
     try { demarrer(await Depot.choisirDossier()); }
@@ -157,7 +189,10 @@
   async function demarrer(d) {
     depot = d;
     try { await charger(); }
-    catch (err) { depot = null; montrer('accueil'); $('[data-accueil-note]').textContent = 'Le carnet n\'a pas pu lire les épisodes de ce dossier.'; return; }
+    catch (err) {
+      const message = d.type === 'github' ? 'Le carnet n\'a pas pu lire vos épisodes en ligne. Rechargez la page dans un instant.' : 'Le carnet n\'a pas pu lire les épisodes de ce dossier.';
+      depot = null; montrer('accueil'); $('[data-accueil-note]').textContent = message; return;
+    }
     route();
   }
 
@@ -175,7 +210,8 @@
       prochain ? `prochain : « ${prochain.titre} », ${dateMoyenne(prochain.date)}` : '',
       brouillons.length ? `${brouillons.length} brouillon${brouillons.length > 1 ? 's' : ''}` : ''
     ].filter(Boolean).join(' · ');
-    $('[data-mode]').textContent = depot.type === 'local' ? `Dossier « ${depot.nom} » sur cet ordinateur` : `Mode ${depot.nom}`;
+    $('[data-mode]').textContent = depot.type === 'local' ? `Dossier « ${depot.nom} » sur cet ordinateur` : depot.type === 'github' ? 'Relié au site en ligne' : `Mode ${depot.nom}`;
+    $('[data-action="changer-dossier"]').hidden = depot.type === 'github';
     afficherReprise();
     afficherListe();
   }

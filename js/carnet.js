@@ -94,11 +94,12 @@
     const parcourir = noeud => {
       [...noeud.childNodes].forEach(enfant => {
         if (enfant.nodeType === 3) {
-          const morceaux = enfant.textContent.split(/(\s+)/);
+          // Espaces ordinaires seulement : les espaces insécables (« C. Vigné », « suite : ») restent dans le mot
+          const morceaux = enfant.textContent.split(/([ \t\n\r]+)/);
           const frag = document.createDocumentFragment();
           morceaux.forEach(m => {
             if (!m) return;
-            if (/^\s+$/.test(m)) { frag.appendChild(document.createTextNode(' ')); return; }
+            if (/^[ \t\n\r]+$/.test(m)) { frag.appendChild(document.createTextNode(' ')); return; }
             const mot = document.createElement('span');
             mot.className = 'mot';
             const interieur = document.createElement('span');
@@ -218,7 +219,8 @@
       const merci = form.parentElement.querySelector('.lettre-merci, .contact-merci') || form.nextElementSibling;
       const boutonEnvoi = form.querySelector('[type="submit"]');
       const local = ['localhost', '127.0.0.1'].includes(location.hostname);
-      if (!action) {
+      // En local, pas de PHP : le formulaire est validé mais rien n'est envoyé
+      if (!action || (local && /.php$/.test(action))) {
         if (!local) { alert("Ce formulaire n'est pas encore branché. Merci de réessayer bientôt."); return; }
         console.info('[aperçu local] Formulaire valide, aucun envoi : le service sera branché à la mise en ligne.');
       } else {

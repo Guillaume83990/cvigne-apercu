@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Le carnet d'écriture · Emilien Goutu</title>
 <link rel="icon" href="/cvigne-apercu/images/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/cvigne-apercu/css/carnet.css">
-<link rel="stylesheet" href="/cvigne-apercu/carnet/atelier.css">
+<link rel="stylesheet" href="/cvigne-apercu/css/carnet.css?v=20261102">
+<link rel="stylesheet" href="/cvigne-apercu/carnet/atelier.css?v=20261102">
 </head>
 <body class="atelier">
 <a class="evitement" href="#principal">Aller au contenu</a>
@@ -24,6 +24,11 @@
       <button type="button" class="bouton-carnet" data-action="ouvrir-dossier">Ouvrir le dossier du site</button>
       <button type="button" class="bouton-carnet" data-action="reprendre-dossier" hidden>Reprendre là où j'en étais</button>
     </div>
+    <form class="accueil-connexion" data-connexion hidden>
+      <label for="cle">Votre clé de connexion</label>
+      <input id="cle" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required data-cle>
+      <button type="submit" class="bouton-carnet">Ouvrir mon carnet</button>
+    </form>
     <p class="accueil-note" data-accueil-note role="status"></p>
   </div>
 </section>
@@ -177,9 +182,9 @@
 
 <p class="annonce" data-annonce role="status" aria-live="polite"></p>
 
-<script src="/cvigne-apercu/js/texte.js"></script>
-<script src="/cvigne-apercu/carnet/depot.js"></script>
-<script src="/cvigne-apercu/carnet/atelier.js"></script>
+<script src="/cvigne-apercu/js/texte.js?v=20261102"></script>
+<script src="/cvigne-apercu/carnet/depot.js?v=20261102"></script>
+<script src="/cvigne-apercu/carnet/atelier.js?v=20261102"></script>
 <div id="apercu-bandeau" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#2b2118;color:#f4ead8;font:500 12px/1.3 system-ui,sans-serif;padding:8px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);letter-spacing:.02em">Aperçu privé · version de travail</div>
 <script>document.addEventListener('submit',function(e){e.preventDefault();alert("Aperçu : les formulaires ne sont pas encore branchés, rien n'a été envoyé.");},true);</script>
 <script>

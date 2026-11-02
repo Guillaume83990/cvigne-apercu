@@ -33,6 +33,12 @@ body.atelier { background: var(--papier-fonce); min-height: 100vh; }
 .accueil-carte h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); }
 .accueil-texte { color: var(--encre-douce); }
 .accueil-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 24px; position: relative; }
+/* Sur le vrai site : la clé de connexion, collée une fois */
+.accueil-connexion { display: grid; gap: 10px; max-width: 360px; margin: 24px auto 0; text-align: left; }
+.accueil-connexion label { font-family: var(--caps); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--encre-douce); }
+.accueil-connexion input { font: inherit; padding: 12px 14px; border: 1px solid var(--trait); border-radius: 6px; background: #fffdf8; color: var(--encre); }
+.accueil-connexion input:focus { outline: 2px solid var(--bordeaux); outline-offset: 2px; }
+.accueil-connexion .bouton-carnet { justify-self: center; margin-top: 6px; }
 .accueil-note { margin: 18px 0 0; font-size: .95rem; color: var(--bordeaux); min-height: 1.5em; }
 
 /* ── Le sommaire du carnet ── */

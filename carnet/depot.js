@@ -155,6 +155,99 @@
     };
   }
 
+  /* ── Mode en ligne : le dépôt GitHub du site, par l'API GitHub ──
+     Chaque enregistrement est un « commit » sur la branche du site ; la
+     fabrication automatique (GitHub Actions) remet le site en ligne.
+     La clé (jeton GitHub limité à ce seul dépôt) reste dans ce navigateur. */
+  function base64Texte(texte) {
+    const octets = new TextEncoder().encode(texte);
+    let s = '';
+    for (let i = 0; i < octets.length; i += 0x8000) s += String.fromCharCode(...octets.subarray(i, i + 0x8000));
+    return btoa(s);
+  }
+  const base64Blob = blob => new Promise((ok, ko) => {
+    const r = new FileReader();
+    r.onload = () => ok(String(r.result).split(',')[1]);
+    r.onerror = () => ko(r.error);
+    r.readAsDataURL(blob);
+  });
+
+  function depotGithub({ repo, branche, jeton }) {
+    const chemin = parties => parties.map(encodeURIComponent).join('/');
+    async function api(url, { brut = false, ...options } = {}) {
+      const rep = await fetch(`https://api.github.com/repos/${repo}/${url}`, {
+        ...options,
+        cache: 'no-store',
+        headers: {
+          Authorization: `Bearer ${jeton}`,
+          Accept: brut ? 'application/vnd.github.raw+json' : 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+          ...(options.body ? { 'Content-Type': 'application/json' } : {})
+        }
+      });
+      if (!rep.ok) { const err = new Error(`GitHub ${rep.status}`); err.statut = rep.status; throw err; }
+      return brut ? rep.text() : rep.json();
+    }
+    const lireFichier = (parties, ref = branche) => api(`contents/${chemin(parties)}?ref=${encodeURIComponent(ref)}`, { brut: true });
+    // L'empreinte (sha) du fichier actuel est demandée juste avant d'écrire : pas de conflit entre deux enregistrements
+    async function empreinte(parties) {
+      try { return (await api(`contents/${chemin(parties)}?ref=${encodeURIComponent(branche)}`)).sha; }
+      catch (err) { if (err.statut === 404) return null; throw err; }
+    }
+    async function ecrireFichier(parties, contenu64, message) {
+      for (let essai = 0; essai < 2; essai++) {
+        const sha = await empreinte(parties);
+        try {
+          return await api(`contents/${chemin(parties)}`, { method: 'PUT', body: JSON.stringify({ message, content: contenu64, branch: branche, ...(sha ? { sha } : {}) }) });
+        } catch (err) { if (err.statut !== 409 || essai) throw err; }
+      }
+    }
+    const apercus = new Map();
+
+    return {
+      type: 'github',
+      nom: 'en ligne',
+      // Vérifie la clé : elle doit pouvoir lire le dépôt du site
+      async verifier() { await api(`contents/${chemin(SAISONS)}?ref=${encodeURIComponent(branche)}`); },
+      async episodes() {
+        const liste = (await api(`contents/${chemin(HISTOIRES)}?ref=${encodeURIComponent(branche)}`)).filter(f => f.type === 'file' && f.name.endsWith('.md'));
+        return Promise.all(liste.map(async f => ({ fichier: f.name, texte: await lireFichier([...HISTOIRES, f.name]) })));
+      },
+      async saisons() { return JSON.parse(await lireFichier(SAISONS)); },
+      lire: fichier => lireFichier([...HISTOIRES, fichier]),
+      async existe(fichier) { return (await empreinte([...HISTOIRES, fichier])) !== null; },
+      async ecrire(fichier, texte) {
+        const titre = (texte.match(/^titre:\s*"?(.*?)"?\s*$/m) || [])[1] || fichier;
+        await ecrireFichier([...HISTOIRES, fichier], base64Texte(texte), `Carnet : « ${titre} »`);
+      },
+      async ecrireImage(nom, blob) {
+        await ecrireFichier([...IMAGES, nom], await base64Blob(blob), `Carnet : image ${nom}`);
+        apercus.set(URL_IMAGES + nom, URL.createObjectURL(blob));
+        return URL_IMAGES + nom;
+      },
+      // Une image ajoutée à l'instant n'est sur le site qu'après la fabrication : on la montre depuis ce navigateur
+      async urlApercu(chemin) { return apercus.get(chemin) || chemin; },
+      // Les anciennes versions sont l'historique GitHub du fichier (le plus récent d'abord, sans la version actuelle)
+      async versions(fichier) {
+        const commits = await api(`commits?path=${encodeURIComponent([...HISTOIRES, fichier].join('/'))}&sha=${encodeURIComponent(branche)}&per_page=${VERSIONS_MAX}`);
+        const anciens = commits.slice(1, 16);
+        const textes = await Promise.all(anciens.map(c => lireFichier([...HISTOIRES, fichier], c.sha).catch(() => null)));
+        return anciens.map((c, i) => ({ id: c.sha, fichier, texte: textes[i], date: new Date(c.commit.committer.date).getTime() })).filter(v => v.texte !== null);
+      }
+    };
+  }
+
+  // La clé est gardée dans ce navigateur (IndexedDB), jamais dans les fichiers du site
+  async function depotEnLigne(jetonNeuf) {
+    const reglages = await (await fetch('/cvigne-apercu/carnet/depot.json', { cache: 'no-store' })).json();
+    const jeton = jetonNeuf || await reglage.lire('jeton').catch(() => null);
+    if (!jeton) return null;
+    const d = depotGithub({ ...reglages, jeton: jeton.trim() });
+    await d.verifier();
+    if (jetonNeuf) await reglage.ecrire('jeton', jeton.trim());
+    return d;
+  }
+
   /* ── Ouvrir ou retrouver le dossier du site (mode local) ── */
   const localPossible = 'showDirectoryPicker' in window;
 
@@ -184,5 +277,9 @@
     return depotLocal(racine);
   }
 
-  window.Depot = { localPossible, choisirDossier, dossierMemorise, oublierDossier: () => reglage.effacer('dossier'), depotMemoire, depotLocal };
+  // Sur le vrai site, le carnet travaille en ligne ; sur cet ordinateur (localhost), dans le dossier du site.
+  // « ?enligne » force le mode en ligne en local, pour l'essayer avant la mise en ligne.
+  const enLigne = /[?&]enligne\b/.test(location.search) || !['localhost', '127.0.0.1', ''].includes(location.hostname);
+
+  window.Depot = { localPossible, enLigne, choisirDossier, dossierMemorise, oublierDossier: () => reglage.effacer('dossier'), depotMemoire, depotLocal, depotGithub, depotEnLigne, oublierJeton: () => reglage.effacer('jeton') };
 })();
