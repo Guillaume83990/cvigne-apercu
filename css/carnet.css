@@ -142,6 +142,8 @@ a:hover .lien-fleche::after, .lien-fleche:hover::after { transform: translateX(5
 .page-accueil .entete:not(.defile) .entete-dernier { background: transparent; color: var(--papier); border-color: rgba(248,242,231,.35); }
 .page-accueil .entete:not(.defile) .bouton-sommaire { background: var(--papier); color: var(--encre); }
 .sommaire-ouvert .entete .logo, .sommaire-ouvert .entete .entete-dernier { opacity: 0; pointer-events: none; }
+/* Menu ouvert : l'en-tête passe au-dessus du sommaire, pour que le bouton « Fermer » (la croix) reste visible, téléphone compris */
+.sommaire-ouvert .entete { z-index: 300; transform: none; background: transparent; box-shadow: none; backdrop-filter: none; }
 
 .sommaire { position: fixed; inset: 0; z-index: 250; background: var(--papier); overflow-y: auto; clip-path: circle(0 at calc(100% - 70px) 40px); transition: clip-path .8s var(--courbe); }
 .sommaire[hidden] { display: block; visibility: hidden; }
